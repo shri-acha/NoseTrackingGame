@@ -1,6 +1,7 @@
 import pygame,random,math
 import pygame.camera,pygame.image
 import cv2
+
 pygame.init()
 HEIGHT,WIDTH = 800,800
 win = pygame.display.set_mode((HEIGHT,WIDTH))
@@ -8,12 +9,12 @@ pygame.display.set_caption("Nose Tracking Game")
 clock = pygame.time.Clock()
 run = True;
 nose_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_mcs_nose.xml")
-
+level =1;
 #Camera stuff
 camera = cv2.VideoCapture(0)
 #end
 def randPos():
-    posRand = (random.randint(200,600)//50 * 50 ,random.randint(200,600)//50 * 50)
+    posRand = (random.randint(200,600)//50 * 50 ,random.randint(200,400)//50 * 50)
     return posRand;
 
 class Sprite(pygame.sprite.Sprite):
@@ -50,6 +51,10 @@ class nonInteractive:
             self.randomPos = randPos();
         pygame.draw.rect(win,(255,255,255),pygame.Rect((WIDTH/2-self.randomPos[0]/2)//50 * 50,(HEIGHT/2-self.randomPos[1]/2)//50 * 50,self.randomPos[0]//50 * 50,self.randomPos[1]//50 * 50),2)
         return (self.randomPos[0],self.randomPos[1])
+    def text(self,value):
+        font = pygame.font.SysFont('Arial', 50)
+        img = font.render(value, True, (255,255,255))
+        win.blit(img,(300,100))
 class Food:
 
     def __init__(self,tempVar=tuple(),foodPos=(HEIGHT/2,WIDTH/2)):
@@ -73,6 +78,7 @@ edge2 = nonInteractive()
 edge3 = nonInteractive()
 edge4 = nonInteractive()
 spaceRect = nonInteractive()
+textValue = nonInteractive()
 while (run):
     clock.tick(60)#it's for the fps
     win.fill((0,0,0))#fills with colour everytime it updates
@@ -94,14 +100,17 @@ while (run):
     edge3.lines(win,(600,700),(700,700),(700,600))
     edge4.lines(win,(600,100),(700,100),(700,200))
 
-
     print(snake.posUser,apple.foodPos,spaceRect.randomPos)
     if(snake.posUser == apple.foodPos):
         apple.tempVar = spaceRect.spaceRect(win,True)
-        apple.draw(win,True)
+        for i in range(1,level):
+            apple.draw(win,True)
+        textValue.text(f'Level: {level}')
+        level+=1
     else:
         apple.tempVar = spaceRect.spaceRect(win)
-        apple.draw(win)
+        textValue.text(f'Level: {level}')
+
 
 
     
