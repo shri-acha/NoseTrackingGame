@@ -4,7 +4,7 @@ import cv2
 pygame.init()
 HEIGHT,WIDTH = 800,800
 win = pygame.display.set_mode((HEIGHT,WIDTH))
-pygame.display.set_caption("Snake Game")
+pygame.display.set_caption("Nose Tracking Game")
 clock = pygame.time.Clock()
 run = True;
 nose_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_mcs_nose.xml")
