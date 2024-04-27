@@ -118,6 +118,7 @@ while (run):
     pygame.display.flip() 
     
     for event in pygame.event.get(): #takes a list and iterates through all the type of event and if any is a type "pygame.QUIT"(yes it is a type of data,when a pygame window is intended to be closed),shuts down the program.
+
         if event.type == pygame.QUIT:
             run = False   
         if event.type == pygame.KEYDOWN:
