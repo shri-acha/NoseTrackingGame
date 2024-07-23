@@ -8,7 +8,7 @@ win = pygame.display.set_mode((HEIGHT,WIDTH))
 pygame.display.set_caption("Nose Tracking Game")
 clock = pygame.time.Clock()
 run = True;
-nose_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_mcs_nose.xml")
+nose_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_eye.xml")
 level =1;
 #Camera stuff
 camera = cv2.VideoCapture(0)
@@ -80,6 +80,7 @@ edge4 = nonInteractive()
 spaceRect = nonInteractive()
 textValue = nonInteractive()
 while (run):
+
     clock.tick(60)#it's for the fps
     win.fill((0,0,0))#fills with colour everytime it updates
     #camera stuff
@@ -100,7 +101,7 @@ while (run):
     edge3.lines(win,(600,700),(700,700),(700,600))
     edge4.lines(win,(600,100),(700,100),(700,200))
 
-    print(snake.posUser,apple.foodPos,spaceRect.randomPos)
+    
     if(snake.posUser == apple.foodPos):
         apple.tempVar = spaceRect.spaceRect(win,True)
         for i in range(1,level):
